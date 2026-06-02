@@ -100,3 +100,44 @@ def logout():
     st.session_state.messages = []
     st.session_state.total_tokens = 0
     st.rerun()
+
+def handle_google_callback(code: str) -> bool:
+    import requests
+    import os
+    GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
+    GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET", "")
+    APP_URL = os.getenv("APP_URL", "http://localhost:8501")
+    
+    if not GOOGLE_CLIENT_ID or not GOOGLE_CLIENT_SECRET:
+        return False
+        
+    try:
+        # 1. Exchange code for access token
+        token_url = "https://oauth2.googleapis.com/token"
+        token_data = {
+            "code": code,
+            "client_id": GOOGLE_CLIENT_ID,
+            "client_secret": GOOGLE_CLIENT_SECRET,
+            "redirect_uri": APP_URL,
+            "grant_type": "authorization_code"
+        }
+        token_res = requests.post(token_url, data=token_data)
+        if token_res.status_code != 200:
+            return False
+            
+        token_json = token_res.json()
+        access_token = token_json.get("access_token")
+        if not access_token:
+            return False
+            
+        # 2. Get user profile details
+        userinfo_url = "https://www.googleapis.com/oauth2/v3/userinfo"
+        userinfo_res = requests.get(userinfo_url, headers={"Authorization": f"Bearer {access_token}"})
+        if userinfo_res.status_code != 200:
+            return False
+            
+        user_info = userinfo_res.json()
+        # 3. Log user in with Google
+        return login_with_google(user_info)
+    except Exception as e:
+        return False

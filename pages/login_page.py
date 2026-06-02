@@ -36,7 +36,7 @@ def show():
         google_auth_url = (
             f"https://accounts.google.com/o/oauth2/v2/auth"
             f"?client_id={GOOGLE_CLIENT_ID}"
-            f"&redirect_uri={APP_URL}/oauth/callback"
+            f"&redirect_uri={APP_URL}"
             f"&response_type=code"
             f"&scope=openid%20email%20profile"
             f"&access_type=offline"
