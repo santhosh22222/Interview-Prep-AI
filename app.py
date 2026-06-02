@@ -27,6 +27,22 @@ if "code" in query_params:
     st.rerun()
 
 if not is_logged_in():
+    st.markdown("""
+    <style>
+    [data-testid="stSidebar"], [data-testid="collapsedControl"] {
+        display: none !important;
+        width: 0 !important;
+        visibility: hidden !important;
+    }
+    .stMain, [data-testid="stMainBlockContainer"] {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     if "auth_page" not in st.session_state:
         st.session_state.auth_page = "login"
     
