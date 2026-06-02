@@ -106,7 +106,7 @@ def handle_google_callback(code: str) -> bool:
     import os
     GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
     GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET", "")
-    APP_URL = os.getenv("APP_URL", "http://localhost:8501")
+    APP_URL = os.getenv("APP_URL") or os.getenv("GOOGLE_REDIRECT_URI") or "http://localhost:8501"
     
     if not GOOGLE_CLIENT_ID or not GOOGLE_CLIENT_SECRET:
         return False

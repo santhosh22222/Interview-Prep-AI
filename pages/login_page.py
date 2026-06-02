@@ -3,7 +3,7 @@ from utils.auth import login_user
 import os
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
-APP_URL = os.getenv("APP_URL", "http://localhost:8501")
+APP_URL = os.getenv("APP_URL") or os.getenv("GOOGLE_REDIRECT_URI") or "http://localhost:8501"
 
 def show():
     st.markdown("""
