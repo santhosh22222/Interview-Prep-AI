@@ -5,7 +5,7 @@ from pages import login_page, signup_page, chat_page
 
 st.set_page_config(
     page_title="Interview Prep AI",
-    page_icon="🎯",
+    page_icon=":material/track_changes:",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -20,28 +20,94 @@ if "code" in query_params:
     with st.spinner("Logging in with Google..."):
         success = handle_google_callback(auth_code)
     if success:
-        st.toast("Welcome back! Google Sign-In successful! 🎉", icon="✅")
+        st.toast("Welcome back! Google Sign-In successful!", icon=":material/check:")
     else:
         st.error("Google Sign-In failed. Please try again.")
     st.query_params.clear()
     st.rerun()
 
 if not is_logged_in():
-    st.markdown("""
-    <style>
-    [data-testid="stSidebar"], [data-testid="collapsedControl"] {
-        display: none !important;
-        width: 0 !important;
-        visibility: hidden !important;
-    }
-    .stMain, [data-testid="stMainBlockContainer"] {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    theme = st.session_state.get("theme", "dark")
+    if theme == "dark":
+        st.markdown("""
+        <style>
+        [data-testid="stSidebar"], [data-testid="collapsedControl"] {
+            display: none !important;
+            width: 0 !important;
+            visibility: hidden !important;
+        }
+        body, .stApp, .stMain {
+            background-color: #121316 !important;
+            border: none !important;
+        }
+        .stMain {
+            margin-left: 0px !important;
+            width: 100% !important;
+        }
+        [data-testid="stMainBlockContainer"] {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            width: 100% !important;
+            max-width: 440px !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+            padding-top: 80px !important;
+            border: none !important;
+        }
+        @media (min-width: 768px) {
+            .stMain {
+                margin-left: 0px !important;
+                width: 100% !important;
+            }
+            [data-testid="stMainBlockContainer"] {
+                margin-left: auto !important;
+                margin-right: auto !important;
+                width: 100% !important;
+                max-width: 440px !important;
+            }
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <style>
+        [data-testid="stSidebar"], [data-testid="collapsedControl"] {
+            display: none !important;
+            width: 0 !important;
+            visibility: hidden !important;
+        }
+        body, .stApp, .stMain {
+            background-color: #f9f9f9 !important;
+            border: none !important;
+        }
+        .stMain {
+            margin-left: 0px !important;
+            width: 100% !important;
+        }
+        [data-testid="stMainBlockContainer"] {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            width: 100% !important;
+            max-width: 440px !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+            padding-top: 80px !important;
+            border: none !important;
+        }
+        @media (min-width: 768px) {
+            .stMain {
+                margin-left: 0px !important;
+                width: 100% !important;
+            }
+            [data-testid="stMainBlockContainer"] {
+                margin-left: auto !important;
+                margin-right: auto !important;
+                width: 100% !important;
+                max-width: 440px !important;
+            }
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
     if "auth_page" not in st.session_state:
         st.session_state.auth_page = "login"

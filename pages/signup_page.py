@@ -2,15 +2,17 @@ import streamlit as st
 from utils.auth import signup_user, login_user
 
 def show():
-    st.markdown("""
-    <div class="login-card">
+    with st.form("signup_form"):
+        st.markdown("""
         <div style='text-align:center; margin-bottom: 24px;'>
-            <div class='brand-title'>🎯 Create Account</div>
+            <div class='brand-title'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px; color: var(--accent);"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                Create Account
+            </div>
             <p style='color:var(--text2); margin-top:8px; font-size: 15px;'>Join Interview Prep AI to master your next interview.</p>
         </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-    with st.form("signup_form"):
         name = st.text_input("Full Name", placeholder="Your full name")
         email = st.text_input("Email address", placeholder="you@example.com")
         password = st.text_input("Password", type="password", placeholder="At least 6 characters")
@@ -30,7 +32,7 @@ def show():
                 if success:
                     # Auto login after signup
                     login_user(email, password)
-                    st.success("Account created! Welcome 🎉")
+                    st.success("Account created! Welcome")
                     st.rerun()
                 else:
                     st.error(result)
@@ -44,5 +46,3 @@ def show():
     if st.button("Log in", key="go_to_login", use_container_width=True):
         st.session_state.auth_page = "login"
         st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)

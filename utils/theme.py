@@ -187,7 +187,7 @@ div[class*="stSidebarHeader"] {
     padding-left: 10% !important;
     padding-right: 10% !important;
     margin-top: 0 !important;
-    max-width: 900px !important;
+    max-width: 800px !important;
     margin-left: auto !important;
     margin-right: auto !important;
 }
@@ -519,18 +519,63 @@ div[data-testid="stBottomBlockContainer"] {
     padding: 0 !important;
 }
 /* Dots popover button compact & single-line */
-[data-testid="stSidebar"] [data-testid="stPopover"] {
-    width: 28px !important;
-}
-[data-testid="stSidebar"] [data-testid="stPopover"] button {
+[data-testid="stSidebar"] div[class*="stPopover"],
+[data-testid="stSidebar"] div[class*="stPopover"] > div,
+[data-testid="stSidebar"] [data-testid="stPopover"],
+[data-testid="stSidebar"] [data-testid="stPopover"] > div,
+[data-testid="stSidebar"] [data-testid="column"]:last-child button,
+.stSidebar div[class*="stPopover"],
+.stSidebar [data-testid="stPopover"],
+div[class*="stPopover"],
+[data-testid="stPopover"] {
     width: 28px !important;
     min-width: 28px !important;
+    max-width: 28px !important;
+}
+[data-testid="stSidebar"] div[class*="stPopover"] button,
+[data-testid="stSidebar"] [data-testid="stPopover"] button,
+[data-testid="stSidebar"] [data-testid="column"]:last-child button,
+.stSidebar div[class*="stPopover"] button,
+.stSidebar [data-testid="stPopover"] button,
+div[class*="stPopover"] button,
+[data-testid="stPopover"] button {
+    width: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
     padding: 3px 2px !important;
     font-size: 13px !important;
     letter-spacing: 1px !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+[data-testid="stSidebar"] div[class*="stPopover"] button svg,
+[data-testid="stSidebar"] div[class*="stPopover"] button div[data-testid="stIcon"],
+[data-testid="stSidebar"] div[class*="stPopover"] button span[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="stPopover"] button svg,
+[data-testid="stSidebar"] [data-testid="stPopover"] button div[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="stPopover"] button span[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button svg,
+[data-testid="stSidebar"] [data-testid="column"]:last-child button div[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button span[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button::after,
+[data-testid="stSidebar"] [data-testid="column"]:last-child button::before,
+.stSidebar div[class*="stPopover"] button svg,
+.stSidebar div[class*="stPopover"] button [data-testid="stIcon"],
+.stSidebar div[class*="stPopover"] button [class*="Icon"],
+div[class*="stPopover"] button svg,
+div[class*="stPopover"] button [data-testid="stIcon"],
+div[class*="stPopover"] button [class*="Icon"],
+[data-testid="stPopover"] button svg,
+[data-testid="stPopover"] button [data-testid="stIcon"],
+[data-testid="stPopover"] button [class*="Icon"],
+[data-testid="stPopover"] button::after,
+[data-testid="stPopover"] button::before {
+    display: none !important;
+    content: none !important;
 }
 
 /* Active chat row container styled as a beautiful capsule pill (specific to avoid main sidebar) */
@@ -689,15 +734,6 @@ div[data-testid="stBottomBlockContainer"] {
 }
 
 /* Custom Cards */
-.login-card {
-    background-color: var(--surface) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 20px !important;
-    padding: 40px !important;
-    max-width: 440px !important;
-    margin: 80px auto !important;
-    box-shadow: 0 10px 30px var(--shadow) !important;
-}
 .brand-title {
     font-size: 2.2rem;
     font-weight: 800;
@@ -707,11 +743,15 @@ div[data-testid="stBottomBlockContainer"] {
     -webkit-text-fill-color: transparent;
 }
 
-/* Form Styling overrides */
+/* Form Styling overrides: Style the form as the login card container */
 [data-testid="stForm"] {
-    border: none !important;
-    padding: 0 !important;
-    background-color: transparent !important;
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 20px !important;
+    padding: 32px !important;
+    box-shadow: 0 10px 30px var(--shadow) !important;
+    margin-top: 40px !important;
+    margin-bottom: 24px !important;
 }
 
 /* Selectbox and Input overrides */
@@ -725,10 +765,21 @@ div[data-baseweb="select"] svg {
     fill: var(--text) !important;
 }
 .stTextInput input, .stTextArea textarea {
-    background-color: var(--surface) !important;
+    background-color: #1b1b1c !important;
     color: var(--text) !important;
     border: 1px solid var(--border) !important;
     border-radius: 12px !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+.stTextInput input:focus, .stTextArea textarea:focus {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.25) !important;
+    outline: none !important;
+}
+
+/* Hide form instruction overlays */
+[data-testid="InputInstructions"] {
+    display: none !important;
 }
 
 /* Right-align copy button for user messages */
@@ -873,26 +924,26 @@ pre {
     color: var(--text-muted);
 }
 
-/* Sidebar Sticky Footer — fixed solid panel at bottom */
-[data-testid="stSidebar"] div[data-testid="element-container"]:has(.sidebar-footer-container) {
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
     width: 260px !important;
     background-color: var(--sidebar) !important;
     border-top: 1px solid var(--border) !important;
-    padding: 10px 0 14px 0 !important;
+    padding: 4px 14px 16px 14px !important;
     z-index: 10000 !important;
     box-shadow: 0 -6px 20px rgba(0,0,0,0.15) !important;
+    gap: 0px !important;
 }
-section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="element-container"]:has(.sidebar-footer-container) {
+section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerticalBlock"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) {
     display: none !important;
     visibility: hidden !important;
 }
 
 /* Push scrollable area above fixed footer */
 [data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    padding-bottom: 100px !important;
+    padding-bottom: 160px !important;
 }
 
 /* Floating Profile Popup Menu styling */
@@ -1002,9 +1053,39 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="element
     display: flex !important;
     align-items: center !important;
     gap: 10px !important;
-    padding: 6px 0 6px 12px !important;
+    padding: 8px 0px !important;
     cursor: default !important;
+    margin-bottom: 6px !important;
 }
+
+/* Sidebar Logout Button Styling matching Image 1 exactly */
+.st-key-menu_logout,
+.st-key-menu_logout > div {
+    width: 100% !important;
+}
+.st-key-menu_logout button,
+.st-key-menu_logout [data-testid="stBaseButton-secondary"] {
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    padding: 10px 16px !important;
+    font-weight: 500 !important;
+    color: var(--text) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    height: auto !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+}
+.st-key-menu_logout button:hover,
+.st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
+    background-color: var(--hover) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--border) !important;
+}
+
 .profile-card-text {
     flex: 1 !important;
     overflow: hidden !important;
@@ -1114,6 +1195,78 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="element
 .st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
     background-color: var(--hover) !important;
     border: none !important;
+}
+
+/* All sidebar buttons: transparent background, no border, no box-shadow */
+[data-testid="stSidebar"] button,
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+[data-testid="stSidebar"] button:hover,
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]:hover {
+    background-color: var(--hover) !important;
+    border: none !important;
+}
+
+/* Delete button inside popover: render in red text */
+[class*="st-key-del_"] button,
+[class*="st-key-del_"] [data-testid="stBaseButton-secondary"] {
+    color: #ff4b4b !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+[class*="st-key-del_"] button:hover,
+[class*="st-key-del_"] [data-testid="stBaseButton-secondary"]:hover {
+    background-color: rgba(255, 75, 75, 0.1) !important;
+    color: #ff4b4b !important;
+    border: none !important;
+}
+
+/* Sidebar footer container flex columns */
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="element-container"] {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    width: 100% !important;
+}
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="stHorizontalBlock"] [data-testid="column"] {
+    width: auto !important;
+    flex: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+/* Username column should expand to take remaining space */
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="stHorizontalBlock"] [data-testid="column"]:nth-child(2) {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+/* Popover column on the right */
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="stHorizontalBlock"] [data-testid="column"]:nth-child(3) {
+    flex: 0 0 auto !important;
+}
+
+/* Hide Streamlit Popover Chevron icons (targets material expand_more and expand_less icons) */
+[data-testid="stSidebar"] [data-testid="stPopover"] button div[aria-hidden="true"],
+[data-testid="stSidebar"] [data-testid="stPopover"] button span[aria-hidden="true"],
+[data-testid="stSidebar"] [data-testid="stPopover"] button [class*="eucf0wj1"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button div[aria-hidden="true"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button span[aria-hidden="true"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button [class*="eucf0wj1"],
+[class*="eucf0wj1"] {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
 </style>
 """
@@ -1341,7 +1494,7 @@ div[class*="stSidebarHeader"] {
     padding-left: 10% !important;
     padding-right: 10% !important;
     margin-top: 0 !important;
-    max-width: 900px !important;
+    max-width: 800px !important;
     margin-left: auto !important;
     margin-right: auto !important;
 }
@@ -1659,18 +1812,63 @@ div[data-testid="stBottomBlockContainer"] {
     padding: 0 !important;
 }
 /* Dots popover button compact & single-line */
-[data-testid="stSidebar"] [data-testid="stPopover"] {
-    width: 28px !important;
-}
-[data-testid="stSidebar"] [data-testid="stPopover"] button {
+[data-testid="stSidebar"] div[class*="stPopover"],
+[data-testid="stSidebar"] div[class*="stPopover"] > div,
+[data-testid="stSidebar"] [data-testid="stPopover"],
+[data-testid="stSidebar"] [data-testid="stPopover"] > div,
+[data-testid="stSidebar"] [data-testid="column"]:last-child button,
+.stSidebar div[class*="stPopover"],
+.stSidebar [data-testid="stPopover"],
+div[class*="stPopover"],
+[data-testid="stPopover"] {
     width: 28px !important;
     min-width: 28px !important;
+    max-width: 28px !important;
+}
+[data-testid="stSidebar"] div[class*="stPopover"] button,
+[data-testid="stSidebar"] [data-testid="stPopover"] button,
+[data-testid="stSidebar"] [data-testid="column"]:last-child button,
+.stSidebar div[class*="stPopover"] button,
+.stSidebar [data-testid="stPopover"] button,
+div[class*="stPopover"] button,
+[data-testid="stPopover"] button {
+    width: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
     padding: 3px 2px !important;
     font-size: 13px !important;
     letter-spacing: 1px !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+[data-testid="stSidebar"] div[class*="stPopover"] button svg,
+[data-testid="stSidebar"] div[class*="stPopover"] button div[data-testid="stIcon"],
+[data-testid="stSidebar"] div[class*="stPopover"] button span[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="stPopover"] button svg,
+[data-testid="stSidebar"] [data-testid="stPopover"] button div[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="stPopover"] button span[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button svg,
+[data-testid="stSidebar"] [data-testid="column"]:last-child button div[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button span[data-testid="stIcon"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button::after,
+[data-testid="stSidebar"] [data-testid="column"]:last-child button::before,
+.stSidebar div[class*="stPopover"] button svg,
+.stSidebar div[class*="stPopover"] button [data-testid="stIcon"],
+.stSidebar div[class*="stPopover"] button [class*="Icon"],
+div[class*="stPopover"] button svg,
+div[class*="stPopover"] button [data-testid="stIcon"],
+div[class*="stPopover"] button [class*="Icon"],
+[data-testid="stPopover"] button svg,
+[data-testid="stPopover"] button [data-testid="stIcon"],
+[data-testid="stPopover"] button [class*="Icon"],
+[data-testid="stPopover"] button::after,
+[data-testid="stPopover"] button::before {
+    display: none !important;
+    content: none !important;
 }
 
 /* Active chat row container styled as a beautiful capsule pill (specific to avoid main sidebar) */
@@ -1829,15 +2027,6 @@ div[data-testid="stBottomBlockContainer"] {
 }
 
 /* Custom Cards */
-.login-card {
-    background-color: var(--surface) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 20px !important;
-    padding: 40px !important;
-    max-width: 440px !important;
-    margin: 80px auto !important;
-    box-shadow: 0 10px 30px var(--shadow) !important;
-}
 .brand-title {
     font-size: 2.2rem;
     font-weight: 800;
@@ -1847,11 +2036,15 @@ div[data-testid="stBottomBlockContainer"] {
     -webkit-text-fill-color: transparent;
 }
 
-/* Form Styling overrides */
+/* Form Styling overrides: Style the form as the login card container */
 [data-testid="stForm"] {
-    border: none !important;
-    padding: 0 !important;
-    background-color: transparent !important;
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 20px !important;
+    padding: 32px !important;
+    box-shadow: 0 10px 30px var(--shadow) !important;
+    margin-top: 40px !important;
+    margin-bottom: 24px !important;
 }
 
 /* Selectbox and Input overrides */
@@ -1865,10 +2058,21 @@ div[data-baseweb="select"] svg {
     fill: var(--text) !important;
 }
 .stTextInput input, .stTextArea textarea {
-    background-color: var(--surface) !important;
+    background-color: #f9f9f9 !important;
     color: var(--text) !important;
     border: 1px solid var(--border) !important;
     border-radius: 12px !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+.stTextInput input:focus, .stTextArea textarea:focus {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.2) !important;
+    outline: none !important;
+}
+
+/* Hide form instruction overlays */
+[data-testid="InputInstructions"] {
+    display: none !important;
 }
 
 /* Right-align copy button for user messages */
@@ -2013,26 +2217,26 @@ pre {
     color: var(--text-muted);
 }
 
-/* Sidebar Sticky Footer — fixed solid panel at bottom */
-[data-testid="stSidebar"] div[data-testid="element-container"]:has(.sidebar-footer-container) {
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
     width: 260px !important;
     background-color: var(--sidebar) !important;
     border-top: 1px solid var(--border) !important;
-    padding: 10px 0 14px 0 !important;
+    padding: 4px 14px 16px 14px !important;
     z-index: 10000 !important;
     box-shadow: 0 -6px 20px rgba(0,0,0,0.15) !important;
+    gap: 0px !important;
 }
-section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="element-container"]:has(.sidebar-footer-container) {
+section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerticalBlock"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) {
     display: none !important;
     visibility: hidden !important;
 }
 
 /* Push scrollable area above fixed footer */
 [data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
-    padding-bottom: 100px !important;
+    padding-bottom: 160px !important;
 }
 
 /* Floating Profile Popup Menu styling */
@@ -2155,9 +2359,39 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="element
     display: flex !important;
     align-items: center !important;
     gap: 10px !important;
-    padding: 6px 0 6px 12px !important;
+    padding: 8px 0px !important;
     cursor: default !important;
+    margin-bottom: 6px !important;
 }
+
+/* Sidebar Logout Button Styling matching Image 1 exactly */
+.st-key-menu_logout,
+.st-key-menu_logout > div {
+    width: 100% !important;
+}
+.st-key-menu_logout button,
+.st-key-menu_logout [data-testid="stBaseButton-secondary"] {
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    padding: 10px 16px !important;
+    font-weight: 500 !important;
+    color: var(--text) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    height: auto !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+}
+.st-key-menu_logout button:hover,
+.st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
+    background-color: var(--hover) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--border) !important;
+}
+
 .profile-card-text { flex: 1 !important; overflow: hidden !important; min-width: 0 !important; }
 .profile-card-name {
     font-weight: 600 !important;
@@ -2290,6 +2524,80 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="element
 [data-testid="stSidebar"] div[data-testid="element-container"] > div[data-testid="stVerticalBlock"]:has(.history-item-row) button:hover,
 [data-testid="stSidebar"] div[data-testid="element-container"] > div[data-testid="stVerticalBlock"]:has(.active-chat-row) button:hover {
     color: #0d0d0d !important;
+}
+
+/* All sidebar buttons: transparent background, no border, no box-shadow */
+[data-testid="stSidebar"] button,
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"] {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+[data-testid="stSidebar"] button:hover,
+[data-testid="stSidebar"] [data-testid="stBaseButton-secondary"]:hover {
+    background-color: var(--hover) !important;
+    color: #0d0d0d !important;
+    border: none !important;
+}
+
+/* Delete button inside popover: render in red text */
+[class*="st-key-del_"] button,
+[class*="st-key-del_"] [data-testid="stBaseButton-secondary"] {
+    color: #ff4b4b !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+[class*="st-key-del_"] button:hover,
+[class*="st-key-del_"] [data-testid="stBaseButton-secondary"]:hover {
+    background-color: rgba(255, 75, 75, 0.1) !important;
+    color: #ff4b4b !important;
+    border: none !important;
+}
+
+/* Sidebar footer container flex columns */
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="element-container"] {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    width: 100% !important;
+}
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="stHorizontalBlock"] [data-testid="column"] {
+    width: auto !important;
+    flex: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+/* Username column should expand to take remaining space */
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="stHorizontalBlock"] [data-testid="column"]:nth-child(2) {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+/* Popover column on the right */
+[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.sidebar-footer-container) [data-testid="stHorizontalBlock"] [data-testid="column"]:nth-child(3) {
+    flex: 0 0 auto !important;
+}
+
+/* Hide Streamlit Popover Chevron icons (targets material expand_more and expand_less icons) */
+[data-testid="stSidebar"] [data-testid="stPopover"] button div[aria-hidden="true"],
+[data-testid="stSidebar"] [data-testid="stPopover"] button span[aria-hidden="true"],
+[data-testid="stSidebar"] [data-testid="stPopover"] button [class*="eucf0wj1"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button div[aria-hidden="true"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button span[aria-hidden="true"],
+[data-testid="stSidebar"] [data-testid="column"]:last-child button [class*="eucf0wj1"],
+[class*="eucf0wj1"] {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
 </style>
 """

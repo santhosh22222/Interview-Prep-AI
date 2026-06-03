@@ -6,15 +6,17 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
 APP_URL = os.getenv("APP_URL") or os.getenv("GOOGLE_REDIRECT_URI") or "http://localhost:8501"
 
 def show():
-    st.markdown("""
-    <div class="login-card">
+    with st.form("login_form"):
+        st.markdown("""
         <div style='text-align:center; margin-bottom: 24px;'>
-            <div class='brand-title'>🎯 Interview Prep AI</div>
+            <div class='brand-title'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px; color: var(--accent);"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                Interview Prep AI
+            </div>
             <p style='color:var(--text2); margin-top:8px; font-size: 15px;'>Welcome back. Log in to your account to continue.</p>
         </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-    with st.form("login_form"):
         email = st.text_input("Email address", placeholder="you@example.com")
         password = st.text_input("Password", type="password", placeholder="Enter your password")
         submit = st.form_submit_button("Continue", use_container_width=True)
@@ -70,5 +72,3 @@ def show():
     if st.button("Sign up", key="go_to_signup", use_container_width=True):
         st.session_state.auth_page = "signup"
         st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)

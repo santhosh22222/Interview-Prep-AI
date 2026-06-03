@@ -27,9 +27,9 @@ Your role:
 
 IMPORTANT — Smart Redirect Rules:
 - If the user asks behavioral/HR questions (e.g. "tell me about yourself", "strengths/weaknesses", "why this company"), give a brief helpful answer, then say:
-  > 💡 **Switch to HR Coach** for deeper behavioral interview practice — click the **HR** tab at the top!
+  > **Switch to HR Coach** for deeper behavioral interview practice — click the **HR** tab at the top!
 - If the user asks non-technical role questions (marketing, finance, design), give a brief answer, then say:
-  > 💡 **Switch to Non-Tech Coach** for role-specific interview prep — click the **Non-Tech** tab!
+  > **Switch to Non-Tech Coach** for role-specific interview prep — click the **Non-Tech** tab!
 
 Always be encouraging, professional, and constructive.""",
 
@@ -45,9 +45,9 @@ Your role:
 
 IMPORTANT — Smart Redirect Rules:
 - If the user asks coding, data structures, algorithms, system design, or any programming question, give a very brief answer and then say:
-  > 💡 **Switch to Technical Coach** for in-depth coding and system design practice — click the **Technical** tab at the top!
+  > **Switch to Technical Coach** for in-depth coding and system design practice — click the **Technical** tab at the top!
 - If the user asks non-technical role questions (marketing, finance, product, design), give a brief answer, then say:
-  > 💡 **Switch to Non-Tech Coach** for role-specific interview prep — click the **Non-Tech** tab!
+  > **Switch to Non-Tech Coach** for role-specific interview prep — click the **Non-Tech** tab!
 
 Be warm, supportive, and help build the student's confidence.""",
 
@@ -63,9 +63,9 @@ Your role:
 
 IMPORTANT — Smart Redirect Rules:
 - If the user asks coding, algorithms, system design, or programming questions, give a brief answer and say:
-  > 💡 **Switch to Technical Coach** for in-depth coding interview practice — click the **Technical** tab at the top!
+  > **Switch to Technical Coach** for in-depth coding interview practice — click the **Technical** tab at the top!
 - If the user asks behavioral/HR questions (STAR, tell me about yourself, etc.), give a brief answer and say:
-  > 💡 **Switch to HR Coach** for behavioral interview mastery — click the **HR** tab at the top!
+  > **Switch to HR Coach** for behavioral interview mastery — click the **HR** tab at the top!
 
 Be practical, specific, and help the student showcase their unique value.""",
 
@@ -80,9 +80,9 @@ Your role:
 - Provide industry-specific advice when relevant
 
 SMART MODE SUGGESTIONS — After answering any focused question, suggest the best tab:
-- Coding/DSA/System Design question → suggest: > 💡 Want deeper practice? Switch to the **Technical** tab!
-- Behavioral/HR question → suggest: > 💡 Want behavioral mastery? Switch to the **HR** tab!
-- Role-specific (marketing, finance, design) → suggest: > 💡 Want role-specific coaching? Switch to the **Non-Tech** tab!
+- Coding/DSA/System Design question → suggest: > Want deeper practice? Switch to the **Technical** tab!
+- Behavioral/HR question → suggest: > Want behavioral mastery? Switch to the **HR** tab!
+- Role-specific (marketing, finance, design) → suggest: > Want role-specific coaching? Switch to the **Non-Tech** tab!
 
 Be versatile, thorough, and personalized in your guidance."""
 }
@@ -99,7 +99,7 @@ def chat_with_groq(messages: list, model: str, interview_type: str) -> tuple[str
     system_prompt = INTERVIEW_SYSTEM_PROMPTS.get(interview_type, INTERVIEW_SYSTEM_PROMPTS["Mixed"])
 
     # Strip extra fields — Groq only accepts 'role' and 'content'
-    clean_messages = [{"role": m["role"], "content": m["content"]} for m in messages]
+    clean_messages = [{"role": m.get("role"), "content": m.get("content")} for m in messages]
     full_messages = [{"role": "system", "content": system_prompt}] + clean_messages
 
     response = client.chat.completions.create(
