@@ -5,7 +5,7 @@ from pages import login_page, signup_page
 
 st.set_page_config(
     page_title="Interview Prep AI",
-    page_icon=":material/track_changes:",
+    page_icon="🎯",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -16,15 +16,15 @@ apply_theme()
 # Handle Google OAuth redirect callback
 query_params = st.query_params
 if "code" in query_params:
-    auth_code = query_params["code"]
     with st.spinner("Logging in with Google..."):
-        success = handle_google_callback(auth_code)
+        success = handle_google_callback(query_params["code"])
+    st.query_params.clear()
     if success:
-        st.toast("Welcome back! Google Sign-In successful!", icon=":material/check:")
+        st.rerun()
     else:
         st.session_state.login_error = "Google Sign-In failed. Please try again."
-    st.query_params.clear()
-    st.rerun()
+        st.rerun()
+    st.stop()  # Prevent login form from flashing underneath
 
 if not is_logged_in():
     theme = st.session_state.get("theme", "dark")
