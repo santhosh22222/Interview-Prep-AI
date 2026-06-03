@@ -285,6 +285,11 @@ div[class*="stSidebarHeader"] {
     max-width: 100% !important;
     margin: 0 auto 10px auto !important;
     padding: 4px 12px !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+[data-testid="stChatInput"]:focus-within {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.2) !important;
 }
 /* Force all inner wrappers to be completely transparent to eliminate the dark rectangle */
 [data-testid="stChatInput"] div,
@@ -299,6 +304,7 @@ div[class*="stSidebarHeader"] {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     outline: none !important;
+    caret-color: var(--text) !important;
 }
 [data-testid="stChatInput"] textarea::placeholder,
 [data-testid="stChatInput"] textarea::-webkit-input-placeholder {
@@ -788,6 +794,7 @@ div[data-baseweb="select"] svg {
     color: var(--text) !important;
     border: none !important;
     box-shadow: none !important;
+    caret-color: var(--text) !important;
 }
 .stTextInput input:focus, .stTextArea textarea:focus {
     border: none !important;
@@ -1621,12 +1628,17 @@ div[class*="stSidebarHeader"] {
 /* Custom Chat Input styling - Exhaustive overrides */
 [data-testid="stChatInput"] {
     background-color: var(--surface) !important;
-    border: 1px solid var(--border) !important;
+    border: 1px solid #cccccc !important; /* Slightly darker than e5e5e5 for clear visibility in light theme */
     border-radius: 26px !important;
     box-shadow: 0 4px 20px var(--shadow) !important;
     max-width: 100% !important;
     margin: 0 auto 10px auto !important;
     padding: 4px 12px !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+[data-testid="stChatInput"]:focus-within {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.2) !important;
 }
 /* Force all inner wrappers to be completely transparent to eliminate the dark rectangle */
 [data-testid="stChatInput"] div,
@@ -1641,6 +1653,7 @@ div[class*="stSidebarHeader"] {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     outline: none !important;
+    caret-color: var(--text) !important;
 }
 [data-testid="stChatInput"] textarea::placeholder,
 [data-testid="stChatInput"] textarea::-webkit-input-placeholder {
@@ -2130,6 +2143,7 @@ div[data-baseweb="select"] svg {
     color: var(--text) !important;
     border: none !important;
     box-shadow: none !important;
+    caret-color: var(--text) !important;
 }
 .stTextInput input:focus, .stTextArea textarea:focus {
     border: none !important;
