@@ -22,7 +22,7 @@ if "code" in query_params:
     if success:
         st.toast("Welcome back! Google Sign-In successful!", icon=":material/check:")
     else:
-        st.error("Google Sign-In failed. Please try again.")
+        st.session_state.login_error = "Google Sign-In failed. Please try again."
     st.query_params.clear()
     st.rerun()
 

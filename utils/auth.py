@@ -43,28 +43,34 @@ def create_token(user_id: str) -> str:
     return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
 def signup_user(name: str, email: str, password: str):
-    users = get_users_col()
-    if users.find_one({"email": email}):
-        return False, "Email already registered."
-    hashed = hash_password(password)
-    result = users.insert_one({
-        "name": name,
-        "email": email,
-        "password": hashed,
-        "provider": "email",
-        "created_at": datetime.utcnow()
-    })
-    return True, str(result.inserted_id)
+    try:
+        users = get_users_col()
+        if users.find_one({"email": email}):
+            return False, "Email already registered."
+        hashed = hash_password(password)
+        result = users.insert_one({
+            "name": name,
+            "email": email,
+            "password": hashed,
+            "provider": "email",
+            "created_at": datetime.utcnow()
+        })
+        return True, str(result.inserted_id)
+    except Exception as e:
+        return False, f"Database connection error: {str(e)}"
 
 def login_user(email: str, password: str):
-    users = get_users_col()
-    user = users.find_one({"email": email})
-    if not user:
-        return False, "No account found with this email."
-    if not verify_password(password, user["password"]):
-        return False, "Incorrect password."
-    _set_logged_in(user)
-    return True, "Login successful."
+    try:
+        users = get_users_col()
+        user = users.find_one({"email": email})
+        if not user:
+            return False, "No account found with this email."
+        if not verify_password(password, user["password"]):
+            return False, "Incorrect password."
+        _set_logged_in(user)
+        return True, "Login successful."
+    except Exception as e:
+        return False, f"Database connection error: {str(e)}"
 
 def login_with_google(google_user: dict):
     users = get_users_col()

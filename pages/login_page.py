@@ -17,6 +17,10 @@ def show():
         </div>
         """, unsafe_allow_html=True)
 
+        if "login_error" in st.session_state and st.session_state.login_error:
+            st.error(st.session_state.login_error)
+            del st.session_state.login_error
+
         email = st.text_input("Email address", placeholder="you@example.com")
         password = st.text_input("Password", type="password", placeholder="Enter your password")
         submit = st.form_submit_button("Continue", use_container_width=True)
