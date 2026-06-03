@@ -7,7 +7,7 @@ st.set_page_config(
     page_title="Interview Prep AI",
     page_icon=":material/track_changes:",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 init_session()
