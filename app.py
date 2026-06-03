@@ -1,7 +1,7 @@
 import streamlit as st
 from utils.auth import init_session, is_logged_in, handle_google_callback
 from utils.theme import apply_theme
-from pages import login_page, signup_page, chat_page
+from pages import login_page, signup_page
 
 st.set_page_config(
     page_title="Interview Prep AI",
@@ -117,4 +117,5 @@ if not is_logged_in():
     else:
         signup_page.show()
 else:
+    from pages import chat_page
     chat_page.show()
