@@ -91,6 +91,7 @@ def _set_logged_in(user):
         "email": user.get("email", ""),
         "picture": user.get("picture", ""),
         "provider": user.get("provider", "email"),
+        "role": user.get("role", user.get("plan", "Go")),
     }
     st.session_state.token = create_token(str(user["_id"]))
 

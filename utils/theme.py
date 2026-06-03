@@ -300,6 +300,12 @@ div[class*="stSidebarHeader"] {
     padding-bottom: 10px !important;
     outline: none !important;
 }
+[data-testid="stChatInput"] textarea::placeholder,
+[data-testid="stChatInput"] textarea::-webkit-input-placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.65 !important;
+    -webkit-text-fill-color: var(--text-muted) !important;
+}
 /* Send button inside input styled as a circle */
 [data-testid="stChatInput"] button {
     background-color: var(--accent) !important;
@@ -764,17 +770,36 @@ div[data-baseweb="select"] > div {
 div[data-baseweb="select"] svg {
     fill: var(--text) !important;
 }
-.stTextInput input, .stTextArea textarea {
+/* Style text input and textarea containers instead of inner elements to prevent double borders */
+.stTextInput > div[data-baseweb="input"], 
+.stTextArea > div[data-baseweb="textarea"] {
     background-color: #1b1b1c !important;
-    color: var(--text) !important;
     border: 1px solid var(--border) !important;
     border-radius: 12px !important;
     transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
-.stTextInput input:focus, .stTextArea textarea:focus {
+.stTextInput > div[data-baseweb="input"]:focus-within, 
+.stTextArea > div[data-baseweb="textarea"]:focus-within {
     border-color: var(--accent) !important;
     box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.25) !important;
+}
+.stTextInput input, .stTextArea textarea {
+    background-color: transparent !important;
+    color: var(--text) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.stTextInput input:focus, .stTextArea textarea:focus {
+    border: none !important;
+    box-shadow: none !important;
     outline: none !important;
+}
+/* Ensure the password eye toggle container and button are transparent to prevent a black/dark strip at the end */
+.stTextInput > div[data-baseweb="input"] div,
+.stTextInput > div[data-baseweb="input"] button {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 /* Hide form instruction overlays */
@@ -1059,12 +1084,13 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
 }
 
 /* Sidebar Logout Button Styling matching Image 1 exactly */
-.st-key-menu_logout,
-.st-key-menu_logout > div {
+[data-testid="stSidebar"] .st-key-menu_logout,
+[data-testid="stSidebar"] .st-key-menu_logout > div {
     width: 100% !important;
+    margin-top: 10px !important;
 }
-.st-key-menu_logout button,
-.st-key-menu_logout [data-testid="stBaseButton-secondary"] {
+[data-testid="stSidebar"] .st-key-menu_logout button,
+[data-testid="stSidebar"] .st-key-menu_logout [data-testid="stBaseButton-secondary"] {
     background-color: var(--surface) !important;
     border: 1px solid var(--border) !important;
     border-radius: 12px !important;
@@ -1073,14 +1099,14 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
     color: var(--text) !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     gap: 10px !important;
     width: 100% !important;
     height: auto !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
 }
-.st-key-menu_logout button:hover,
-.st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
+[data-testid="stSidebar"] .st-key-menu_logout button:hover,
+[data-testid="stSidebar"] .st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
     background-color: var(--hover) !important;
     color: #ffffff !important;
     border: 1px solid var(--border) !important;
@@ -1173,10 +1199,9 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
     border: none !important;
 }
 
-/* Logout button inside popup */
-[data-testid="stSidebar"] div[data-testid="stVerticalBlock"]:has(.profile-popup-card) ~ div .st-key-menu_logout button,
-.st-key-menu_logout button,
-.st-key-menu_logout [data-testid="stBaseButton-secondary"] {
+/* General buttons inside popover */
+[data-testid="stPopoverBody"] button,
+[data-testid="stPopoverBody"] [data-testid="stBaseButton-secondary"] {
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -1190,11 +1215,35 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
     width: 100% !important;
     display: flex !important;
     align-items: center !important;
+    gap: 8px !important;
+    transition: background-color 0.15s !important;
 }
-.st-key-menu_logout button:hover,
-.st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
+[data-testid="stPopoverBody"] button:hover,
+[data-testid="stPopoverBody"] [data-testid="stBaseButton-secondary"]:hover {
     background-color: var(--hover) !important;
     border: none !important;
+    color: var(--text) !important;
+}
+
+/* Download and Share history buttons at the top right of the viewport */
+.st-key-download_history_btn button,
+.st-key-download_history_btn [data-testid="stBaseButton-secondary"],
+.st-key-share_history_btn button,
+.st-key-share_history_btn [data-testid="stBaseButton-secondary"] {
+    background-color: var(--surface) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
+    transition: background-color 0.15s, border-color 0.15s !important;
+}
+.st-key-download_history_btn button:hover,
+.st-key-download_history_btn [data-testid="stBaseButton-secondary"]:hover,
+.st-key-share_history_btn button:hover,
+.st-key-share_history_btn [data-testid="stBaseButton-secondary"]:hover {
+    background-color: var(--hover) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
 }
 
 /* All sidebar buttons: transparent background, no border, no box-shadow */
@@ -1592,6 +1641,12 @@ div[class*="stSidebarHeader"] {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     outline: none !important;
+}
+[data-testid="stChatInput"] textarea::placeholder,
+[data-testid="stChatInput"] textarea::-webkit-input-placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.65 !important;
+    -webkit-text-fill-color: var(--text-muted) !important;
 }
 /* Send button inside input styled as a circle */
 [data-testid="stChatInput"] button {
@@ -2057,17 +2112,36 @@ div[data-baseweb="select"] > div {
 div[data-baseweb="select"] svg {
     fill: var(--text) !important;
 }
-.stTextInput input, .stTextArea textarea {
+/* Style text input and textarea containers instead of inner elements to prevent double borders */
+.stTextInput > div[data-baseweb="input"], 
+.stTextArea > div[data-baseweb="textarea"] {
     background-color: #f9f9f9 !important;
-    color: var(--text) !important;
     border: 1px solid var(--border) !important;
     border-radius: 12px !important;
     transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
-.stTextInput input:focus, .stTextArea textarea:focus {
+.stTextInput > div[data-baseweb="input"]:focus-within, 
+.stTextArea > div[data-baseweb="textarea"]:focus-within {
     border-color: var(--accent) !important;
     box-shadow: 0 0 0 2px rgba(16, 163, 127, 0.2) !important;
+}
+.stTextInput input, .stTextArea textarea {
+    background-color: transparent !important;
+    color: var(--text) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.stTextInput input:focus, .stTextArea textarea:focus {
+    border: none !important;
+    box-shadow: none !important;
     outline: none !important;
+}
+/* Ensure the password eye toggle container and button are transparent to prevent a black/dark strip at the end */
+.stTextInput > div[data-baseweb="input"] div,
+.stTextInput > div[data-baseweb="input"] button {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 /* Hide form instruction overlays */
@@ -2365,12 +2439,13 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
 }
 
 /* Sidebar Logout Button Styling matching Image 1 exactly */
-.st-key-menu_logout,
-.st-key-menu_logout > div {
+[data-testid="stSidebar"] .st-key-menu_logout,
+[data-testid="stSidebar"] .st-key-menu_logout > div {
     width: 100% !important;
+    margin-top: 10px !important;
 }
-.st-key-menu_logout button,
-.st-key-menu_logout [data-testid="stBaseButton-secondary"] {
+[data-testid="stSidebar"] .st-key-menu_logout button,
+[data-testid="stSidebar"] .st-key-menu_logout [data-testid="stBaseButton-secondary"] {
     background-color: var(--surface) !important;
     border: 1px solid var(--border) !important;
     border-radius: 12px !important;
@@ -2379,16 +2454,16 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
     color: var(--text) !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     gap: 10px !important;
     width: 100% !important;
     height: auto !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
 }
-.st-key-menu_logout button:hover,
-.st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
+[data-testid="stSidebar"] .st-key-menu_logout button:hover,
+[data-testid="stSidebar"] .st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
     background-color: var(--hover) !important;
-    color: #ffffff !important;
+    color: var(--text) !important;
     border: 1px solid var(--border) !important;
 }
 
@@ -2452,9 +2527,9 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
     border: none !important;
 }
 
-/* Logout button inside popover */
-.st-key-menu_logout button,
-.st-key-menu_logout [data-testid="stBaseButton-secondary"] {
+/* General buttons inside popover */
+[data-testid="stPopoverBody"] button,
+[data-testid="stPopoverBody"] [data-testid="stBaseButton-secondary"] {
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -2471,10 +2546,11 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
     gap: 8px !important;
     transition: background-color 0.15s !important;
 }
-.st-key-menu_logout button:hover,
-.st-key-menu_logout [data-testid="stBaseButton-secondary"]:hover {
+[data-testid="stPopoverBody"] button:hover,
+[data-testid="stPopoverBody"] [data-testid="stBaseButton-secondary"]:hover {
     background-color: var(--hover) !important;
     border: none !important;
+    color: var(--text) !important;
 }
 
 /* ── Light theme specific fixes ── */
@@ -2524,6 +2600,27 @@ section[data-testid="stSidebar"][data-collapsed="true"] div[data-testid="stVerti
 [data-testid="stSidebar"] div[data-testid="element-container"] > div[data-testid="stVerticalBlock"]:has(.history-item-row) button:hover,
 [data-testid="stSidebar"] div[data-testid="element-container"] > div[data-testid="stVerticalBlock"]:has(.active-chat-row) button:hover {
     color: #0d0d0d !important;
+}
+
+/* Download and Share history buttons at the top right of the viewport */
+.st-key-download_history_btn button,
+.st-key-download_history_btn [data-testid="stBaseButton-secondary"],
+.st-key-share_history_btn button,
+.st-key-share_history_btn [data-testid="stBaseButton-secondary"] {
+    background-color: var(--surface) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+    transition: background-color 0.15s, border-color 0.15s !important;
+}
+.st-key-download_history_btn button:hover,
+.st-key-download_history_btn [data-testid="stBaseButton-secondary"]:hover,
+.st-key-share_history_btn button:hover,
+.st-key-share_history_btn [data-testid="stBaseButton-secondary"]:hover {
+    background-color: var(--hover) !important;
+    color: var(--text) !important;
+    border-color: var(--border) !important;
 }
 
 /* All sidebar buttons: transparent background, no border, no box-shadow */

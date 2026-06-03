@@ -186,20 +186,21 @@ def _render_sidebar(user):
         # Sticky Bottom Footer container
         with st.container():
             st.markdown('<div class="sidebar-footer-container"></div>', unsafe_allow_html=True)
-            col_avatar, col_name, col_trigger = st.columns([1.2, 3.2, 1])
+            col_avatar, col_name = st.columns([1.2, 3.8])
             with col_avatar:
                 st.markdown(f'<div class="user-avatar">{initials}</div>', unsafe_allow_html=True)
             with col_name:
+                role = user.get("role", "Go")
                 st.markdown(f"""
                 <div class="profile-card-text">
                     <div class="profile-card-name">{user['name']}</div>
-                    <div class="profile-card-plan">Go</div>
+                    <div class="profile-card-plan">{role}</div>
                 </div>
                 """, unsafe_allow_html=True)
-            with col_trigger:
-                with st.popover("⊞", use_container_width=False, key="profile_popover"):
-                    if st.button("Log out", icon=":material/logout:", key="menu_logout", use_container_width=True):
-                        logout()
+            
+            # Logout button directly below the profile info (full width inline)
+            if st.button("Logout", icon=":material/logout:", key="menu_logout", use_container_width=True):
+                logout()
 
 def _render_chat_area(user):
     interview_type = st.session_state.interview_type
